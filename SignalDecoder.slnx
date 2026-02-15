@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SignalDecoder.Api/SignalDecoder.Api.csproj" />
+    <Project Path="src/SignalDecoder.Application/SignalDecoder.Application.csproj" />
+    <Project Path="src/SignalDecoder.Domain/SignalDecoder.Domain.csproj" />
+  </Folder>
+</Solution>
