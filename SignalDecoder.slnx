@@ -4,4 +4,7 @@
     <Project Path="src/SignalDecoder.Application/SignalDecoder.Application.csproj" />
     <Project Path="src/SignalDecoder.Domain/SignalDecoder.Domain.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SignalDecoder.Tests/SignalDecoder.Tests.csproj" />
+  </Folder>
 </Solution>
