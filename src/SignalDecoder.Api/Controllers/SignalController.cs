@@ -11,13 +11,20 @@ public class SignalController : ControllerBase
     private readonly ISignalSimulatorService _simulatorService;
     private readonly ISignalDecoderService _decoderService;
 
-    public SignalController(ISignalSimulatorService simulatorService, ISignalDecoderService decoderService)
+    public SignalController(
+        ISignalSimulatorService simulatorService,
+        ISignalDecoderService decoderService)
     {
         _simulatorService = simulatorService;
         _decoderService = decoderService;
     }
 
+    /// <summary>
+    /// Simulate signal transmission by randomly selecting active devices.
+    /// </summary>
     [HttpPost("simulate")]
+    [ProducesResponseType(typeof(SimulateResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Simulate([FromBody] SimulateRequest request)
     {
         if (request.Devices == null || request.Devices.Count == 0)
@@ -36,7 +43,12 @@ public class SignalController : ControllerBase
         return Ok(response);
     }
 
+    /// <summary>
+    /// Decode a received signal to identify which devices transmitted it.
+    /// </summary>
     [HttpPost("decode")]
+    [ProducesResponseType(typeof(DecodeResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Decode([FromBody] DecodeRequest request)
     {
         if (request.Devices == null || request.Devices.Count == 0)
