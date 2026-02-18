@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using SignalDecoder.Api.Middleware;
 using SignalDecoder.Application.Services;
 using SignalDecoder.Domain.Interfaces;
 
@@ -41,6 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors();
 app.MapControllers();
 
