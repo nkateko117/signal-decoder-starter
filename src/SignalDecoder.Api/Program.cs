@@ -1,6 +1,8 @@
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using SignalDecoder.Api.Middleware;
+using SignalDecoder.Api.Swagger;
 using SignalDecoder.Application.Services;
 using SignalDecoder.Domain.Interfaces;
 
@@ -31,7 +33,16 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SchemaFilter<SwaggerExampleSchemaFilter>();
+    options.OperationFilter<GenerateEndpointExampleFilter>();
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+        options.IncludeXmlComments(xmlPath);
+});
 
 var app = builder.Build();
 
@@ -43,7 +54,8 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors();
 app.MapControllers();
 
-app.MapGet("/", () => Results.Redirect("/swagger"));
+app.MapGet("/", () => Results.Redirect("/swagger"))
+   .ExcludeFromDescription();
 
 app.Run();
 
