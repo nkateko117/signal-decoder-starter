@@ -47,7 +47,7 @@ public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Theory]
-    [InlineData(0, 4, 9)]   // count too low
+    [InlineData(0, 4, 9)]   // count too low 
     [InlineData(101, 4, 9)] // count too high
     [InlineData(5, 0, 9)]   // signalLength too low
     [InlineData(5, 21, 9)]  // signalLength too high
