@@ -43,6 +43,8 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors();
 app.MapControllers();
 
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 app.Run();
 
 // Required for WebApplicationFactory in integration tests
